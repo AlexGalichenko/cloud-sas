@@ -8,6 +8,16 @@
     "test": "jest",
     "coverage": "jest --coverage"
   },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    }
+  },
   "engines": {
     "node": "14.x.x"
   },
