@@ -9,6 +9,15 @@ class FirebaseDB {
     }
 
     /**
+     * Get user by user id
+     * @param userId
+     * @returns {firebase.database.Reference}
+     */
+    getUserByUserId(userId) {
+        return this.db.ref('/users/' + userId);
+    }
+
+    /**
      * Add new free user into storage
      * @param userConfig
      * @returns {Promise<void>}
@@ -33,7 +42,7 @@ class FirebaseDB {
         const user = (await userQuery.get()).toJSON();
         if (user) {
             const userId = Object.keys(user)[0]
-            const userRef = this.db.ref('/users/' + userId);
+            const userRef = this.getUserByUserId(userId);
             await userRef.update({locked: true});
             return {
                 id: userId,
@@ -49,7 +58,7 @@ class FirebaseDB {
      * @returns {Promise<firebase.database.DataSnapshot>}
      */
     async getUser(userId) {
-        return this.db.ref('/users/' + userId).get()
+        return this.getUserByUserId(userId).get()
     }
 
     /**
@@ -58,8 +67,26 @@ class FirebaseDB {
      * @returns {Promise<void>}
      */
     async freeUser(userId) {
-        const userRef = this.db.ref('/users/' + userId);
+        const userRef = this.getUserByUserId(userId);
         await userRef.update({locked: false});
+    }
+
+    /**
+     * Delete user by userId
+     * @param userId
+     * @returns {Promise<void>}
+     */
+    async deleteUser(userId) {
+        const userRef = this.getUserByUserId(userId);
+        await userRef.remove();
+    }
+
+    /**
+     * Delete all users
+     * @returns {Promise<void>}
+     */
+    async deleteUsers() {
+        await this.users.remove();
     }
 
 }
