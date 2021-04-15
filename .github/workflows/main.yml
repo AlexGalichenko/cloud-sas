@@ -31,5 +31,8 @@ jobs:
         with:
           service_account_key: ${{ secrets.SERVICE_KEY }}
 
+      - name: login gcloud
+        run: gcloud auth login
+
       - name: deploy
         run: gcloud app deploy
