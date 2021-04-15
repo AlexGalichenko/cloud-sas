@@ -15,22 +15,11 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
+    name: GAE Deploy
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: checkout
-        uses: actions/checkout@v2
-
-      - name: setup gcloud SDK
-        uses: google-github-actions/setup-gcloud@v0.2.0
+      - uses: actions/checkout@v2
+      - uses: google-github-actions/deploy-appengine@main
         with:
-          project_id: focused-zephyr-291919
-          service_account_key: ${{ secrets.SERVICE_KEY }}
-
-      - name: deploy
-        run: gcloud app deploy
+          credentials: ${{ secrets.gcp_credentials }}
