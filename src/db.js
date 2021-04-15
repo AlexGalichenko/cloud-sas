@@ -44,6 +44,15 @@ class FirebaseDB {
     }
 
     /**
+     * Get certain user
+     * @param userId
+     * @returns {Promise<firebase.database.DataSnapshot>}
+     */
+    async getUser(userId) {
+        return this.db.ref('/users/' + userId).get()
+    }
+
+    /**
      * Update user in storage mark it as free
      * @param userId
      * @returns {Promise<void>}

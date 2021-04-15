@@ -64,6 +64,21 @@ test('freeUser', async () => {
     expect(updateStub.calledWith({locked: false})).to.equal(true);
 });
 
+test('get certain user', async () => {
+    const getStub = sinon.stub();
+    const refStub = sinon.stub().withArgs('waterLogs').returns({
+        get: getStub
+    });
+
+    const initStub = sinon.stub(firebase, 'initializeApp');
+    const databaseStub = sinon.stub(firebase, 'database').returns({ref: refStub});
+    const db = new FirebaseDB();
+
+    const user = await db.getUser('42');
+    expect(refStub.calledWith('/users/42')).to.equal(true);
+    expect(getStub.called).to.equal(true);
+});
+
 
 afterEach(async () => {
     sinon.restore();

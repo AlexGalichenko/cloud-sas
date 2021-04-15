@@ -14,11 +14,10 @@ app.get('/user', async (req, res) => {
 });
 
 /**
- * todo
  * return certain user
  */
 app.get('/user/:id', async (req, res) => {
-    const user = await db.getUser(req.id);
+    const user = await db.getUser(req.params.id);
     res.status(200).json(user);
 });
 
