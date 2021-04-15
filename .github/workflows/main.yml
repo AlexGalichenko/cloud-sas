@@ -29,10 +29,8 @@ jobs:
       - name: setup gcloud SDK
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
+          project_id: focused-zephyr-291919
           service_account_key: ${{ secrets.SERVICE_KEY }}
-
-      - name: login gcloud
-        run: gcloud auth login
 
       - name: deploy
         run: gcloud app deploy
