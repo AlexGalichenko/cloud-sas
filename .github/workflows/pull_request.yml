@@ -1,12 +1,10 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Pull Request
 
 # Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -20,6 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: google-github-actions/deploy-appengine@main
-        with:
-          credentials: ${{ secrets.gcp_credentials }}
+      - name: install modules
+        run: npm i
+      - name: unit tests coverage
+        run: npm run coverage
+      - name: unit tests
+        run: npm run test
