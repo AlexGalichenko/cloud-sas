@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8080;
 const { FirebaseDB } = require('./db');
-const firebaseConfig = require('../credentials');
+const firebaseConfig = require('./credentials');
 const db = new FirebaseDB(firebaseConfig);
 
 /**
