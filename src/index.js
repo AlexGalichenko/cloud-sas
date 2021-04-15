@@ -1,16 +1,23 @@
 const express = require('express');
+const bodyParser = require('body-parser')
 const app = express();
 const PORT = process.env.PORT || 8080;
 const { FirebaseDB } = require('./db');
 const firebaseConfig = require('./credentials');
 const db = new FirebaseDB(firebaseConfig);
 
+app.use(bodyParser.json())
+
 /**
  * return free user
  */
 app.get('/user', async (req, res) => {
     const user = await db.getFreeUser();
-    res.status(200).json(user);
+    if (user) {
+        res.status(200).json(user);
+    } else {
+        res.sendStatus(404);
+    }
 });
 
 /**
@@ -22,12 +29,11 @@ app.get('/user/:id', async (req, res) => {
 });
 
 /**
- * todo
  * set new user
  */
 app.post('/user', async (req, res) => {
     await db.addUser(req.body);
-    res.status(201);
+    res.sendStatus(201);
 });
 
 /**
