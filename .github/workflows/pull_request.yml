@@ -22,5 +22,3 @@ jobs:
         run: npm i
       - name: unit tests coverage
         run: npm run coverage
-      - name: unit tests
-        run: npm run test

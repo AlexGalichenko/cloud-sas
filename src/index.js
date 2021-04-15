@@ -26,26 +26,32 @@ app.get('/user/:id', async (req, res) => {
  * set new user
  */
 app.post('/user', async (req, res) => {
-    await db.createUser(req.payload);
-    res.status(200);
+    await db.addUser(req.body);
+    res.status(201);
 });
 
 /**
- * todo
  * free user
  */
 app.put('/user/:id', async (req, res) => {
-    const user = await db.freeUser(req.id);
+    const user = await db.freeUser(req.params.id);
     res.status(200).json(user);
 });
 
 /**
- * todo
  * delete user
  */
 app.delete('/user/:id', async (req, res) => {
-    const user = await db.deleteUser(req.id);
-    res.status(200).json(user);
+    const user = await db.deleteUser(req.params.id);
+    res.status(204).json(user);
+});
+
+/**
+ * delete all users
+ */
+app.delete('/user', async (req, res) => {
+    const user = await db.deleteUsers();
+    res.status(204).json(user);
 });
 
 app.listen(PORT);
