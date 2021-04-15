@@ -28,6 +28,8 @@ jobs:
 
       - name: setup gcloud SDK
         uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          service_account_key: ${{ secrets.SERVICE_KEY }}
 
       - name: deploy
         run: gcloud app deploy
