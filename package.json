@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "static:code:analysis": "eslint src/**/*.js"
   },
   "jest": {
     "coverageThreshold": {
@@ -25,9 +26,12 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "chai": "^4.3.4",
     "express": "^4.17.1",
-    "firebase": "^8.3.2",
+    "firebase": "^8.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "eslint": "^7.24.0",
     "jest": "^26.6.3",
     "sinon": "^10.0.0"
   }

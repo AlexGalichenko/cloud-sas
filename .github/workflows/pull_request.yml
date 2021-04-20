@@ -20,5 +20,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: install modules
         run: npm i
+      - name: static code analysis
+        run: npm run static:code:analysis
       - name: unit tests coverage
         run: npm run coverage
