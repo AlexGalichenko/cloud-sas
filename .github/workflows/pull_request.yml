@@ -24,3 +24,8 @@ jobs:
         run: npm run static:code:analysis
       - name: unit tests coverage
         run: npm run coverage
+      - name: test report
+        uses: actions/upload-artifact@v2
+        with:
+         name: unit-test-report
+         path: html-report/report.html
