@@ -17,7 +17,14 @@
         "lines": 90,
         "statements": 90
       }
-    }
+    },
+    "reporters": [
+      "default",
+      ["jest-html-reporters", {
+        "publicPath": "./html-report",
+        "filename": "report.html"
+      }]
+    ]
   },
   "engines": {
     "node": "14.x.x"
@@ -33,6 +40,7 @@
     "chai": "^4.3.4",
     "eslint": "^7.24.0",
     "jest": "^26.6.3",
+    "jest-html-reporters": "^2.1.4",
     "sinon": "^10.0.0"
   }
 }
