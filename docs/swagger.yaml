@@ -1,0 +1,115 @@
+swagger: "2.0"
+info:
+  description: "This is the simple user credential manager"
+  version: "1.0.0"
+  title: "Credential Manager"
+  contact:
+    email: "alexandr.galichenko@gmail.com"
+host: "localhost:8080"
+basePath: "/"
+tags:
+  - name: "user"
+    description: "Operations with user credentials"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /user:
+    post:
+      tags:
+        - "user"
+      summary: "Add new user credential into list"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Created user object"
+          required: true
+          schema:
+            $ref: "#/definitions/UserCreate"
+      responses:
+        "201":
+          description: "successful operation"
+    get:
+      tags:
+        - "user"
+      summary: "Get free user from the list"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/UserGet"
+        "404":
+          description: "no free users"
+  /user/{userid}:
+    get:
+      tags:
+        - "user"
+      summary: "Get user by user id"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "userid"
+          in: "path"
+          description: "The id that need to be fetched"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/UserGet"
+        "400":
+          description: "Invalid username supplied"
+        "404":
+          description: "User not found"
+    put:
+      tags:
+        - "user"
+      summary: "Free certain user"
+      description: "Unlock user credential"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "userid"
+          in: "path"
+          description: "name that need to be updated"
+          required: true
+          type: "string"
+      responses:
+        "400":
+          description: "Invalid user supplied"
+        "404":
+          description: "User not found"
+    delete:
+      tags:
+        - "user"
+      summary: "Delete user"
+      description: "This can only be done by the logged in user."
+      operationId: "deleteUser"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "userid"
+          in: "path"
+          description: "The name that needs to be deleted"
+          required: true
+          type: "string"
+      responses:
+        "204":
+          description: "User deleted"
+definitions:
+  UserCreate:
+    type: "object"
+    additionalProperties: true
+  UserGet:
+    type: "object"
+    properties:
+      id:
+        type: string
+      locked:
+        type: boolean
+    additionalProperties: true
