@@ -32,7 +32,7 @@ class FirebaseDB {
 
     /**
      * Get free user from list
-     * @returns {object|null}
+     * @returns {Promise<firebase.database.DataSnapshot|null>}
      */
     async getFreeUser() {
         const userQuery = this.users
